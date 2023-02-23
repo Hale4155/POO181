@@ -1,17 +1,49 @@
 #1. importa la clase
 from personaje import *
 
-#2. instanciar un objeto
-heroe= Personaje()
+#2.solicitar atributos para el objeto 
+print("")
+print("### solicitud de datos del heroe ###")
+espH=input("escribe el nombre de la especie del heroe: ")
+nomH=input("escribe el nombre del heroe: ")
+altH=float(input("escribe la altura del heroe: "))
+cargaH=int(input("cuantas balas se recargaran al heroe: "))
 
-#3. acceder a sus atributos
-print("Atributos del personaje")
+print("")
+print("### solicitud de datos del villano ###")
+espV=input("escribe el nombre de la especie del villano: ")
+nomV=input("escribe el nombre del villano: ")
+altV=float(input("escribe la altura del villano: "))
+cargaV=int(input("cuantas balas se recargaran al villano: "))
+#3. creamos 2 objetos
+heroe= Personaje(espH,nomH,altH)
+villano= Personaje(espV,nomV,altV)
+
+#4. acceder a sus atributos y metodos de cada obj
+
+print("")
+print("## Atributos y Metodos del heroe ##")
 print("el personaje pertenece a la raza: "+ heroe.especie)
 print("se llama: "+ heroe.nombre)
 print("mide: "+ str(heroe.altura) + " metros")
+print("")
 
 
 print("metodos personaje")
 heroe.correr(True)
 heroe.lanzarGranada()
-heroe.recargarArma(68)
+heroe.recargarArma(cargaH)
+
+print("")
+print("## Atributos y Metodos del villano ##")
+print("el personaje pertenece a la raza: "+ villano.especie)
+print("se llama: "+ villano.nombre)
+print("mide: "+ str(villano.altura) + " metros")
+print("")
+
+
+print("metodos personaje")
+heroe.correr(False)
+heroe.lanzarGranada()
+heroe.recargarArma(cargaV)
+

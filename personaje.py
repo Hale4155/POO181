@@ -1,11 +1,11 @@
 
 class Personaje:
     
-    #atributos del personaje 
-    
-    especie = "humano"
-    nombre = "genji"
-    altura = 1.90
+    #creamos al constructor
+    def __init__(self, esp,nom,alt):
+         self.especie = esp
+         self.nombre = nom
+         self.altura = alt
     
     #metodos personaje 
     
