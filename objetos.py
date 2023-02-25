@@ -19,13 +19,14 @@ cargaV=int(input("cuantas balas se recargaran al villano: "))
 heroe= Personaje(espH,nomH,altH)
 villano= Personaje(espV,nomV,altV)
 
+heroe.setnombre("Genji")
 #4. acceder a sus atributos y metodos de cada obj
 
 print("")
 print("## Atributos y Metodos del heroe ##")
-print("el personaje pertenece a la raza: "+ heroe.especie)
-print("se llama: "+ heroe.nombre)
-print("mide: "+ str(heroe.altura) + " metros")
+print("el personaje pertenece a la raza: "+ heroe.getespecie())
+print("se llama: "+ heroe.getnombre())
+print("mide: "+ str(heroe.getaltura()) + " metros")
 print("")
 
 
@@ -34,11 +35,16 @@ heroe.correr(True)
 heroe.lanzarGranada()
 heroe.recargarArma(cargaH)
 
+#ejemplo de lo que no se debe hacer 
+
+# heroe.__pensar()
+
+
 print("")
 print("## Atributos y Metodos del villano ##")
-print("el personaje pertenece a la raza: "+ villano.especie)
-print("se llama: "+ villano.nombre)
-print("mide: "+ str(villano.altura) + " metros")
+print("el personaje pertenece a la raza: "+ villano.getespecie())
+print("se llama: "+ villano.getnombre())
+print("mide: "+ str(villano.getaltura()) + " metros")
 print("")
 
 
