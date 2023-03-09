@@ -1,0 +1,31 @@
+from tkinter import Tk,Frame,Button,Entry,Label,messagebox
+def login():
+        correo= texto.get()
+        contra= texto2.get()        
+        if correo == "example" and contra == "12345":
+            messagebox.showinfo("¡Inicio de sesión exitoso!")
+        else:
+            messagebox.showerror("Correo o contraseña incorrectos. Intente nuevamente.")
+
+
+  
+#ventana= Tk()
+#ventana.title(" practica 12: login con tkinter y P.O.O")
+#ventana.geometry("600x400")
+
+#label=Label(ventana, text="correo:")
+#label.pack()
+#texto = Entry(ventana)
+#texto.pack()
+
+#label=Label(ventana, text="contraseña:")
+#label.pack()
+#texto2= Entry(ventana, show="*")
+#texto2.pack()
+
+#botonlogin =Button(ventana,text="boton verde",bg="#66ff99",command=login)
+#botonlogin.pack()
+
+#ventana.mainloop()
+
+
