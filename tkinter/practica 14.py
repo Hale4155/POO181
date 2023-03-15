@@ -16,7 +16,9 @@ class CuentaBancaria:
         self.edad = edad
         self.saldo = saldo
         self.transacciones = []
-        
+    
+        self.cuenta =CuentaBancaria(12345, "Juan Pérez", 30, 5000)
+    
     def consultar_saldo(self):
         return self.saldo
     
@@ -97,21 +99,16 @@ class CuentaGUI:
         except ValueError as error:
             tk.messagebox.showerror("Error", str(error))
 
-    def depositar(self):
-        cantidad = float(self.depositar_cantidad_entry.get())
-        numero_cuenta = self.depositar_cuenta_entry.get()
+    def depositar_otra_cuenta(self):
         try:
-            cuenta_destino = buscar_cuenta(numero_cuenta)
-            if cuenta_destino is None:
-                raise ValueError("La cuenta destino no existe.")
+            cantidad = int(self.depositar_cantidad_entry.get())
+            cuenta_destino = CuentaBancaria(int(self.depositar_cuenta_destino_entry.get()), "Desconocido", 0, 0)
             self.cuenta.depositar_otra_cuenta(cantidad, cuenta_destino)
-            self.saldo_label.configure(text=f"Saldo actual: {self.cuenta.consultar_saldo()}")
-            self.depositar_cantidad_entry.delete(0, tk.END)
-            self.depositar_cuenta_entry.delete(0, tk.END)
+            self.actualizar_saldo_label()
         except ValueError as error:
             tk.messagebox.showerror("Error", str(error))
-
-raíz = tk. Tk()
-root.title("Cuentas Bancarias")   
+            
+root = tk. Tk()
+app = CuentaGUI(root)
 root.mainloop()
 
