@@ -1,43 +1,46 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
+from controladorBD import * #1. Mandamos a llamar los metodos dentro de la clase ControladorBD
 
-ventana = Tk()
-ventana.title("CRUD de usuarios")
-ventana.geometry("500x300")
+#2. Creamos 1 objeto de la Clase ControladorBD
+# ademas nos ayudara a iniciar los metodos de la clase
 
-panel=ttk.Notebook(ventana)
-panel.pack(fill="both",expand="yes")
+controlador= controladorBD()
 
-pestaña1=ttk.Frame(panel)
-pestaña2=ttk.Frame(panel)
-pestaña3=ttk.Frame(panel)
-pestaña4=ttk.Frame(panel)
+def ejecutaInsert():
+    controlador.guardarUsuario(varNom.get(), varCor.get(),varCon.get())
 
-#pestaña 1: formulario de usuarios 
+ventana=Tk()
+ventana.title("CRUD de Usuarios")
+ventana.geometry("800x600")
 
-titulo= Label(pestaña1,text="registro de usuarios",fg="blue",font=("Modern",18)).pack()
+panel= ttk.Notebook(ventana)
+panel.pack(fill='both', expand='yes')
 
+pestana1= ttk.Frame(panel)
+pestana2= ttk.Frame(panel)
+pestana3= ttk.Frame(panel)
+pestana4= ttk.Frame(panel)
 
-varNom= tk.StringVar()
-lblNom= Label(pestaña1, text="Nombre: ").pack()
-txtNom= Entry(pestaña1,textvariable=varNom).pack()
+varNom=tk.StringVar()
+titulo1 = Label(pestana1, text="Nombre:", font=("Modern",18)).pack(fill=tk.X, padx=20,pady=5)
+usuario = Entry(pestana1, textvariable=varNom, font=("Helvetica", 18)).pack( padx=20,pady=10)
+        
+varCor = tk.StringVar()        
+titulo2 = Label(pestana1, text="Correo:", font=("Modern", 18)).pack(fill=tk.X, padx=20, pady=5)
+correo = Entry(pestana1,textvariable=varCor, font=("Helvetica", 18)).pack( padx=20, pady=10, )
 
-varCor= tk.StringVar()
-lblCor= Label(pestaña1, text="Correo: ").pack()
-txtCor= Entry(pestaña1,textvariable=varCor).pack()
+varCon = tk.StringVar()
+titulo3 = Label(pestana1, text="Contraseña:", font=("Modern", 18)).pack(fill=tk.X, padx=20, pady=5)
+contraseña = Entry(pestana1, textvariable=varCon, show="*", font=("Helvetica", 18)).pack(padx=20, pady=10,)
 
-varCon= tk.StringVar()
-lblCon= Label(pestaña1, text="contraseña: ").pack()
-txtCon= Entry(pestaña1,textvariable=varCon).pack()
+botonLog= tk.Button(pestana1, text="Guardar Usuario", fg="Black", bg="#00ccff", font=("Modern", 15), command=ejecutaInsert)
+botonLog.pack()
 
-
-panel.add(pestaña1, text="formulario de usuarios")
-panel.add(pestaña2, text="buscar usuario")
-panel.add(pestaña3, text="consultar usuario")
-panel.add(pestaña4, text="actualizar usuario")
-
+panel.add(pestana1, text='Formulario usuarios')
+panel.add(pestana2, text='Buscar usuarios')
+panel.add(pestana3, text='Consultar usuarios')
+panel.add(pestana4, text='Actualizar usuarios')
 
 ventana.mainloop()
-
-
