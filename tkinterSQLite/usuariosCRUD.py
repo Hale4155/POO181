@@ -28,6 +28,8 @@ def ejecutaSelectU():
         
 def ejecutarConsultarU():
     usuarios = controlador.importarUsuarios()
+    # limpiamos el contenido anterior del widget treeview
+    treeview.delete(*treeview.get_children())
     if usuarios:
         for usuario in usuarios:
             treeview.insert("", "end", values=(usuario[0], usuario[1], usuario[2], usuario[3]))
@@ -35,6 +37,7 @@ def ejecutarConsultarU():
         messagebox.showinfo("No hay usuarios", "No hay usuarios en la BD")
     
     treeview.pack()
+
 
 
 ventana = Tk()
