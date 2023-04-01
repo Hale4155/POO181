@@ -82,4 +82,21 @@ class controladorBD:
                 print("error consulta")    
     
     
-            
+    def importarUsuarios(self):
+    # 1. Preparar una conexión
+        conx = self.conexionBD()
+
+        try:
+            # 2. Preparar el cursor y la consulta
+            cursor = conx.cursor()
+            selectQry = "select * from TBRegistrados"
+
+            # 3. Ejecutar y guardar la consulta
+            cursor.execute(selectQry)
+            rsUsuarios = cursor.fetchall()
+            conx.close()
+
+            return rsUsuarios
+
+        except sqlite3.OperationalError:
+            print("error consulta")

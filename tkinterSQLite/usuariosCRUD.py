@@ -1,12 +1,19 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
-from controladorBD import * 
+from controladorBD import * #1. mandamos a llamar los metodos dentro de la clase controladorBD
+
+#2.creamos 1 objeto de la clase controladorBD
+#ademas nos ayudara a iniciar los metodos de la clase 
 
 controlador = controladorBD()
 
+#3.funcion para disparar el boton de ingresar un usuario
+
 def ejecutaInsert():
     controlador.guardarUsuario(varNom.get(), varCor.get(), varCon.get())
+
+#4.funcion para disparar el boton de busqueda 
 
 def ejecutaSelectU():
     usuario = controlador.consultarUsuario(varBus.get())
@@ -16,6 +23,16 @@ def ejecutaSelectU():
         textEnc.insert(END, cadena)
     else:
         messagebox.showinfo("Usuario no encontrado", "El usuario no existe en la BD") 
+        
+        
+def ejecutarConsultarU():
+    usuarios = controlador.importarUsuarios()
+    if usuarios:
+        for usuario in usuarios:
+            cadena = str(usuario[0]) + " " + usuario[1] + " " + usuario[2] + " " + str(usuario[3])
+            textEnc.insert(END, cadena + "\n")
+    else:
+        messagebox.showinfo("No hay usuarios", "No hay usuarios en la BD")
 
 ventana = Tk()
 ventana.title("CRUD de Usuarios")
@@ -55,6 +72,17 @@ btnBus = Button(pestana2,text="Buscar",command=ejecutaSelectU).pack()
 
 subBus = Label(pestana2,text="encontrado:",fg="blue",font=("Modern",15)).pack()
 textEnc = tk.Text(pestana2,height=5,width=52)
+textEnc.pack()
+
+#pestaña3: consultar usuarios 
+
+titulo3 = Label(pestana3, text="Consultar Usuarios", fg="green",font=("Modern", 18)).pack()
+
+varCons = tk.StringVar()
+botonCons = Button(pestana3,text="Buscar",command=ejecutarConsultarU).pack()
+
+subCons = Label(pestana3,text="usuarios encontrados:",fg="blue",font=("Modern",15)).pack()
+textEnc = tk.Text(pestana3,height=5,width=52)
 textEnc.pack()
 
 panel.add(pestana1, text='Formulario usuarios')
