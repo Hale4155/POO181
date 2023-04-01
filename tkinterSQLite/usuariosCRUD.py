@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+
 import tkinter as tk
 from controladorBD import * #1. mandamos a llamar los metodos dentro de la clase controladorBD
 
@@ -29,10 +30,12 @@ def ejecutarConsultarU():
     usuarios = controlador.importarUsuarios()
     if usuarios:
         for usuario in usuarios:
-            cadena = str(usuario[0]) + " " + usuario[1] + " " + usuario[2] + " " + str(usuario[3])
-            textEnc.insert(END, cadena + "\n")
+            treeview.insert("", "end", values=(usuario[0], usuario[1], usuario[2], usuario[3]))
     else:
         messagebox.showinfo("No hay usuarios", "No hay usuarios en la BD")
+    
+    treeview.pack()
+
 
 ventana = Tk()
 ventana.title("CRUD de Usuarios")
@@ -75,15 +78,25 @@ textEnc = tk.Text(pestana2,height=5,width=52)
 textEnc.pack()
 
 #pestaña3: consultar usuarios 
+#pestaña3: consultar usuarios 
 
 titulo3 = Label(pestana3, text="Consultar Usuarios", fg="green",font=("Modern", 18)).pack()
 
 varCons = tk.StringVar()
 botonCons = Button(pestana3,text="Buscar",command=ejecutarConsultarU).pack()
 
+treeview = ttk.Treeview(pestana3, columns=(1,2,3,4), show="headings", height="5")
+treeview.heading(1, text="ID")
+treeview.column(1, width=50)
+treeview.heading(2, text="Nombre")
+treeview.column(2, width=150)
+treeview.heading(3, text="Correo")
+treeview.column(3, width=200)
+treeview.heading(4, text="Contraseña")
+treeview.column(4, width=100)
+
 subCons = Label(pestana3,text="usuarios encontrados:",fg="blue",font=("Modern",15)).pack()
-textEnc = tk.Text(pestana3,height=5,width=52)
-textEnc.pack()
+treeview.pack()
 
 panel.add(pestana1, text='Formulario usuarios')
 panel.add(pestana2, text='Buscar usuarios')

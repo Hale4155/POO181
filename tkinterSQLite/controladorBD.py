@@ -81,7 +81,8 @@ class controladorBD:
             except sqlite3.OperationalError:
                 print("error consulta")    
     
-    
+    #metodo para consultar a todos los usuarios de la base de datos
+
     def importarUsuarios(self):
     # 1. Preparar una conexión
         conx = self.conexionBD()
