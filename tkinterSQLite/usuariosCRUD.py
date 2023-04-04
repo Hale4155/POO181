@@ -26,6 +26,7 @@ def ejecutaSelectU():
         messagebox.showinfo("Usuario no encontrado", "El usuario no existe en la BD") 
         
         
+        
 def ejecutarConsultarU():
     usuarios = controlador.importarUsuarios()
     # limpiamos el contenido anterior del widget treeview
@@ -37,8 +38,16 @@ def ejecutarConsultarU():
         messagebox.showinfo("No hay usuarios", "No hay usuarios en la BD")
     
     treeview.pack()
+    
+def ejecutarActualizarU():
+    controlador.actualizarUsuario(varID.get(), varNomAct.get(), varCorAct.get(), varConAct.get())
+    # mostramos un mensaje en pantalla
+    messagebox.showinfo("Actualización exitosa", "El usuario ha sido actualizado correctamente")
 
-
+    
+def ejecutarEliminarU():
+    controlador.eliminarUsuario(varIDs.get())
+    
 
 ventana = Tk()
 ventana.title("CRUD de Usuarios")
@@ -51,6 +60,7 @@ pestana1 = ttk.Frame(panel)
 pestana2 = ttk.Frame(panel)
 pestana3 = ttk.Frame(panel)
 pestana4 = ttk.Frame(panel)
+pestaña5= ttk.Frame(panel)
 
 varNom = tk.StringVar()
 titulo1 = Label(pestana1, text="Nombre:", font=("Modern",18)).pack(fill=tk.X, padx=20, pady=5)
@@ -101,9 +111,54 @@ treeview.column(4, width=100)
 subCons = Label(pestana3,text="usuarios encontrados:",fg="blue",font=("Modern",15)).pack()
 treeview.pack()
 
+#pestaña4: actualizar usuarios
+titulo4 = Label(pestana4, text="Actualizar usuario", font=("Modern",18)).pack(fill=tk.X, padx=20, pady=10)
+
+#Campo para ingresar el ID del usuario a actualizar
+varID = tk.StringVar()
+lblID = Label(pestana4, text="ID del usuario:", font=("Modern", 15)).pack(padx=20, pady=5)
+txtID = Entry(pestana4, textvariable=varID, font=("Helvetica", 15))
+txtID.pack(padx=20, pady=5)
+
+#Campos para ingresar los nuevos datos del usuario
+varNomAct = tk.StringVar()
+lblNomAct = Label(pestana4, text="Nuevo nombre:", font=("Modern", 15)).pack(padx=20, pady=5)
+txtNomAct = Entry(pestana4, textvariable=varNomAct, font=("Helvetica", 15))
+txtNomAct.pack(padx=20, pady=5)
+
+varCorAct = tk.StringVar()        
+lblCorAct = Label(pestana4, text="Nuevo correo:", font=("Modern", 15)).pack(padx=20, pady=5)
+txtCorAct = Entry(pestana4, textvariable=varCorAct, font=("Helvetica", 15))
+txtCorAct.pack(padx=20, pady=5)
+
+varConAct = tk.StringVar()
+lblConAct = Label(pestana4, text="Nueva contraseña:", font=("Modern", 15)).pack(padx=20, pady=5)
+txtConAct = Entry(pestana4, textvariable=varConAct, show="*", font=("Helvetica", 15))
+txtConAct.pack(padx=20, pady=5)
+
+#Botón para actualizar el usuario
+botonAct = tk. Button(pestana4, text="Actualizar usuario", fg="Black", bg="#00ccff", font=("Modern", 15), command=ejecutarActualizarU)
+botonAct.pack()
+
+#pestaña5: eliminar usuario 
+titulo5 = Label(pestaña5, text="Eliminar usuario", font=("Modern",18)).pack(fill=tk.X, padx=20, pady=10)
+
+
+#Campo para ingresar el ID del usuario a eliminar
+varIDs = tk.StringVar()
+lblIDs = Label(pestaña5, text="ID del usuario:", font=("Modern", 15)).pack(padx=20, pady=5)
+txtIDs = Entry(pestaña5, textvariable=varIDs, font=("Helvetica", 15))
+txtIDs.pack(padx=20, pady=5)
+
+#Botón para actualizar el usuario
+botonElm = tk. Button(pestaña5, text="Eliminar usuario", fg="Black", bg="#00ccff", font=("Modern", 15),command=ejecutarEliminarU)
+botonElm.pack()
+
+
 panel.add(pestana1, text='Formulario usuarios')
 panel.add(pestana2, text='Buscar usuarios')
 panel.add(pestana3, text='Consultar usuarios')
 panel.add(pestana4, text='Actualizar usuarios')
+panel.add(pestaña5, text="eliminar usuarios")
 
 ventana.mainloop()

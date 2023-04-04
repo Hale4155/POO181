@@ -101,3 +101,68 @@ class controladorBD:
 
         except sqlite3.OperationalError:
             print("error consulta")
+
+    def actualizarUsuario(self, id, nom, cor, con):
+    # 1. Preparar una conexión
+        conx = self.conexionBD()
+
+        # 2. Validar parámetros vacíos
+        if nom == "" or cor == "" or con == "":
+            messagebox.showwarning("cuidado", "formulario incompleto")
+        else:
+            try:
+                # 3. Preparar el cursor, datos y query SQL
+                cursor = conx.cursor()
+                conH = self.encriptarCon(con)
+                datos = (nom, cor, conH, id)
+                qrUpdate = "update TBRegistrados set nombre=?, correo=?, contra=? where id=?"
+
+                # 4. Ejecutar update y cerrar conexión
+                cursor.execute(qrUpdate, datos)
+                conx.commit()
+                conx.close()
+                messagebox.showinfo("Exito", "Usuario Actualizado")
+
+            except sqlite3.OperationalError:
+                print("error actualización")
+
+
+   
+    
+    def eliminarUsuario(self,id):
+        #1. preparar una conexion 
+        conx= self.conexionBD()
+        
+        #2.verificar si id contiene algo
+        if(id == ""):
+            messagebox.showwarning("cuidado","id vacio escribe algo valido")
+            conx.close()
+        else:
+            try:
+                #3. Preparar el cursor y la consulta
+                cursor=conx.cursor()
+                selectQry="select * from TBRegistrados where id="+id
+                
+                #4. Ejecutar y guardar la consulta
+                cursor.execute(selectQry)
+                rsUsuario= cursor.fetchall()
+
+                # 5. Mostrar ventana de confirmación
+                if rsUsuario:
+                    confirmacion = messagebox.askyesno("Confirmar eliminación", f"¿Está seguro que desea eliminar al usuario {rsUsuario[0][1]}?")
+                    if confirmacion:
+                        #6. Preparar el query y ejecutar eliminación
+                        deleteQry="delete from TBRegistrados where id="+id
+                        cursor.execute(deleteQry)
+                        conx.commit()
+                        conx.close()
+                        messagebox.showinfo("Exito","Usuario eliminado")
+                    else:
+                        conx.close()
+                else:
+                    messagebox.showwarning("Usuario no encontrado", f"El usuario con ID {id} no existe en la base de datos.")
+                    conx.close()
+
+
+            except sqlite3.OperationalError:
+                print("error eliminación")
