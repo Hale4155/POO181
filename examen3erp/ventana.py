@@ -2,6 +2,22 @@ from tkinter import *
 from tkinter import ttk
 
 import tkinter as tk 
+from importacionBD import *
+
+
+controlador = importacionBD()
+
+def ejecutaInsert():
+    controlador.guardarMercancia(varNom.get(), varPais.get())
+    
+def ejecutarEliminarM():
+    controlador.eliminarMercancia(varIDs.get())    
+
+
+def ejecutarBuscarPais():
+    pais = varBus.get()
+    controlador.consultarPais(pais)
+        
 
 ventana = Tk()
 ventana.title("CRUD de Mercancías")
@@ -22,7 +38,7 @@ varPais = tk.StringVar()
 titulo2 = Label(pestana1, text="País de origen:", font=("Modern", 18)).pack(fill=tk.X, padx=20, pady=5)
 pais = Entry(pestana1,textvariable=varPais, font=("Helvetica", 18)).pack( padx=20, pady=10, )
 
-botonLog = tk.Button(pestana1, text="Guardar Mercancía", fg="Black", bg="#00ccff", font=("Modern", 15),)
+botonLog = tk.Button(pestana1, text="Guardar Mercancía", fg="Black", bg="#00ccff", font=("Modern", 15),command=ejecutaInsert)
 botonLog.pack()
 
 #pestaña2: consultarXpais
@@ -32,14 +48,9 @@ titulo2 = Label(pestana2, text="Buscar país", fg="green",font=("Modern", 18)).p
 varBus = tk.StringVar()
 lblid = Label(pestana2,text="Nombre del país: ").pack()
 txtid = Entry(pestana2,textvariable=varBus).pack()
-btnBus = Button(pestana2,text="Buscar").pack()
 
-subBus = Label(pestana2,text="encontrado:",fg="blue",font=("Modern",15)).pack()
-textEnc = tk.Text(pestana2,height=5,width=52)
-textEnc.pack()
+botonConsultarPais = tk.Button(pestana2, text="Consultar Países", fg="Black", bg="#00ccff", font=("Modern", 15),command=ejecutarBuscarPais).pack()
 
-botonConsultarPais = tk.Button(pestana2, text="Consultar Países", fg="Black", bg="#00ccff", font=("Modern", 15))
-botonConsultarPais.pack()
 
 #pestaña3: eliminar 
 titulo3 = Label(pestana3, text="Eliminar mercancía", fg="green",font=("Modern", 18)).pack()
@@ -47,8 +58,8 @@ titulo3 = Label(pestana3, text="Eliminar mercancía", fg="green",font=("Modern",
 varIDs = tk. StringVar()
 lblid = Label(pestana3,text="ID de la mercancía: ").pack()
 txtid = Entry(pestana3,textvariable=varIDs).pack()
-btnElim = Button(pestana3,text="Eliminar").pack()
-
+botonElm = tk. Button(pestana3, text="Eliminar", fg="Black", bg="#00ccff", font=("Modern", 15),command=ejecutarEliminarM)
+botonElm.pack()
 panel.add(pestana1, text="Insertar Mercancía")
 panel.add(pestana2, text="consultar pais")
 panel.add(pestana3, text="eliminar")
